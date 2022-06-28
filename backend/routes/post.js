@@ -4,7 +4,6 @@ const postController = require('../controllers/post')
 
 const auth = require('../middlewares/auth')
 //const compareId = require('../middlewares/compareId')
-//const multer = require('../middlewares/multer-config')
 
 router.get('/', auth, postController.getPosts)
 router.post('/', auth, postController.addPost)
