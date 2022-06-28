@@ -6,8 +6,7 @@ exports.signup = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then((exists) => {
             if (exists) {
-                res.status(409).json({ error: 'Cette addresse e-mail est déjà utilisée.' })
-                return
+                return res.status(409).json({ message: 'Cette addresse e-mail est déjà utilisée.' })
             }
 
             bcrypt
@@ -20,11 +19,33 @@ exports.signup = (req, res, next) => {
 
                     user.save()
                         .then(() => res.status(201).json({ message: 'Inscription réussie avec succès.' }))
-                        .catch((error) => res.status(500).json({ error: '' }))
+                        .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))
                 })
                 .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))
         })
         .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))
 }
 
-exports.login = (req, res, next) => {}
+exports.login = (req, res, next) => {
+    User.findOne({ email: req.body.email })
+        .then((user) => {
+            if (!user) {
+                return res.status(404).json({ message: "Aucun compte n'est associé avec cette addresse e-mail." })
+            }
+
+            bcrypt
+                .compare(req.body.password, user.password)
+                .then((valid) => {
+                    if (!valid) {
+                        return res.status(401).json({ message: 'Mot de passe incorrect.' })
+                    }
+
+                    res.status(200).json({
+                        userId: user._id,
+                        token: jsw.sign({ userId: user._id }, process.env.SECRET_TOKEN || 'SECRET_TOKEN', { expiresIn: '7d' }),
+                    })
+                })
+                .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))
+        })
+        .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))
+}
