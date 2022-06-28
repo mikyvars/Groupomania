@@ -4,10 +4,11 @@ const postController = require('../controllers/post')
 
 const auth = require('../middlewares/auth')
 const compareId = require('../middlewares/compareId')
+const multer = require('../middlewares/multer-config')
 
 router.get('/', auth, postController.getPosts)
-router.post('/', auth, postController.addPost)
-router.put('/:id', auth, compareId, postController.modifyPost)
+router.post('/', auth, multer, postController.addPost)
+router.put('/:id', auth, multer, compareId, postController.modifyPost)
 router.delete('/:id', auth, compareId, postController.deletePost)
 router.post('/:id/like', auth, postController.likePost)
 
