@@ -46,4 +46,19 @@ exports.deletePost = (req, res, next) => {
         .catch((error) => res.status(500).json({ error }))
 }
 
-exports.likePost = (req, res, next) => {}
+exports.likePost = (req, res, next) => {
+    Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            if (post.usersLiked.indexOf(req.body.userId) == -1) {
+                post.usersLiked.push(req.body.userId)
+            } else {
+                const index = post.usersLiked.findIndex((user) => user === req.body.userId)
+                post.usersLiked.splice(index, 1)
+            }
+
+            post.save()
+                .then(() => res.status(200).json({ message: 'Vous aimé like/dislike cette publication.' }))
+                .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
+        })
+        .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
+}
