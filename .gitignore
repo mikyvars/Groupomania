@@ -1,3 +1,7 @@
+.vscode/
+
 backend/node_modules
 backend/.env
 backend/images
+
+frontend/node_modules
