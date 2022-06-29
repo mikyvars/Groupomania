@@ -3,6 +3,7 @@ const User = require('../models/User')
 const Post = require('../models/Post')
 
 module.exports = (req, res, next) => {
+    console.log(req.body.userId)
     User.findOne({ _id: req.body.userId })
         .then((user) => {
             if (user.isAdmin) {
