@@ -1,0 +1,13 @@
+@import '../../utils/style/utils';
+
+.header {
+    background-color: $color-tertiary;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__logo {
+        height: 50px;
+    }
+}
