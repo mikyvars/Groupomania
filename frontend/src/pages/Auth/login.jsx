@@ -8,7 +8,9 @@ function Login() {
             <Style.StyledForm method="POST">
                 <Style.StyledFormTitle>Connectez-vous</Style.StyledFormTitle>
                 <Style.StyledFormInput type="text" name="email" id="email" placeholder="Adresse e-mail" />
+                <Style.StyledFormError id="emailError"></Style.StyledFormError>
                 <Style.StyledFormInput type="password" name="password" id="password" placeholder="Mot de passe" />
+                <Style.StyledFormError id="passwordError"></Style.StyledFormError>
                 <Style.StyledFormSubmit type="submit">Se connecter</Style.StyledFormSubmit>
             </Style.StyledForm>
         </React.Fragment>

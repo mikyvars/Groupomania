@@ -25,9 +25,16 @@ export const StyledFormTitle = styled.h1`
 
 export const StyledFormInput = styled.input`
     width: 100%;
-    margin-bottom: 15px;
+    margin-top: 15px;
     padding: 10px 5px;
     outline: none;
+`
+
+export const StyledFormError = styled.p`
+    color: ${colors.primary};
+    align-self: flex-start;
+    margin: 5px 0 0 -7px;
+    font-size: 14px;
 `
 
 export const StyledFormSubmit = styled.button`
@@ -39,4 +46,5 @@ export const StyledFormSubmit = styled.button`
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 15px;
 `
