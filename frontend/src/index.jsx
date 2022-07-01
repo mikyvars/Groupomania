@@ -5,7 +5,8 @@ import { createGlobalStyle } from 'styled-components'
 
 import Header from './components/Header'
 import Home from './pages/Home'
-import Signup from './pages/Signup'
+import Signup from './pages/Auth/signup'
+import Login from './pages/Auth/login'
 
 const StyledApp = createGlobalStyle`
     body {
@@ -24,6 +25,7 @@ root.render(
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
         </Routes>
     </BrowserRouter>
 )
