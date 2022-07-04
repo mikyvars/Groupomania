@@ -1,59 +1,28 @@
-const http = require('http')
-const app = require('./app')
+require('dotenv').config()
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
-// normalize the port to get a valid value
-const normalizePort = val => {
-	const port = parseInt(val, 10)
+const userRoutes = require('./routes/user')
+const postRoutes = require('./routes/post')
 
-	if (isNaN(port)) {
-		return val
-	}
+mongoose
+    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'))
 
-	if (port >= 0) {
-		return port
-	}
+const app = express()
+app.listen(process.env.API_PORT)
 
-	return false
-}
-
-const port = normalizePort(process.env.API_PORT || '3000')
-app.set('port', port)
-
-// handle server errors
-const errorHandler = error => {
-
-	if(error.syscall !== 'listen') {
-		throw error
-	}
-
-	const address = server.address()
-	const bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port
-
-	switch (error.code) {
-		case 'EACCES':
-			console.error(bind + ' requires elevated privileges.')
-			process.exit(1)
-			break
-
-		case 'EADDRINUSE':
-			console.error(bind + ' is already in use.')
-			process.exit(1)
-			break
-
-		default:
-			throw error
-	}
-}
-
-const server = http.createServer(app)
-
-// connect to the port
-server.on('error', errorHandler)
-server.on('listening', () => {
-	const address = server.address()
-	const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port
-	console.log('Listening on ' + bind)
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+    next()
 })
 
-// listen api calls on selected port
-server.listen(port)
+app.use(bodyParser.json())
+app.use('/api/auth', userRoutes)
+app.use('/api/post', postRoutes)
+
+module.exports = app
