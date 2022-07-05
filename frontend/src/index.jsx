@@ -15,6 +15,10 @@ const StyledApp = createGlobalStyle`
         height: 100%;
         font-family: Roboto;
     }
+
+    p {
+        margin: 0;
+    }
 `
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
