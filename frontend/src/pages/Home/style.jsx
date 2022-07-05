@@ -14,7 +14,6 @@ export const StyledContent = styled.div`
 `
 
 export const StyledSidebar = styled.aside`
-    // background-color: rgba(255, 0, 0, 0.1);
     flex: 1 1 auto;
 `
 
@@ -108,7 +107,7 @@ export const StyledFeed = styled.section`
                 margin: 15px 0;
 
                 img {
-                    width: 500px;
+                    width: auto;
                     height: 250px;
                     object-fit: cover;
                     justify-self: flex-start;
