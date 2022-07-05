@@ -8,7 +8,7 @@ export const StyledContent = styled.div`
     margin: 25px auto 0 auto;
     column-gap: 75px;
 
-    @media screen and (max-width: ${sizes.tablet}) {
+    @media screen and (max-width: ${sizes.laptop}) {
         flex-direction: column;
     }
 `
@@ -47,6 +47,7 @@ export const StyledSidebarContent = styled.div`
             flex-direction: column;
             padding: 5px;
             border-bottom: 1px solid silver;
+            text-align: justify;
 
             &:last-child {
                 border-bottom: none;
@@ -63,7 +64,7 @@ export const StyledSidebarContent = styled.div`
         }
     }
 
-    @media screen and (max-width: ${sizes.tablet}) {
+    @media screen and (max-width: ${sizes.laptop}) {
         .announce__header {
             flex-direction: column;
         }
@@ -105,12 +106,15 @@ export const StyledFeed = styled.section`
 
             &__content {
                 margin: 15px 0;
+                text-align: justify;
 
                 img {
-                    width: auto;
-                    height: 250px;
+                    width: 100%;
+                    max-width: 100%;
+                    height: 350px;
                     object-fit: cover;
                     justify-self: flex-start;
+                    margin-top: 5px;
                 }
             }
 
@@ -127,7 +131,7 @@ export const StyledFeed = styled.section`
         }
     }
 
-    @media screen and (max-width: ${sizes.tablet}) {
+    @media screen and (max-width: ${sizes.laptop}) {
         margin-top: 50px;
     }
 `

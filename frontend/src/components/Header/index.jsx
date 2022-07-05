@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../../utils/colors'
 
@@ -7,10 +8,13 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
 
-    img {
-        height: 50px;
+    a {
         margin: 0 auto;
         display: block;
+
+        img {
+            height: 50px;
+        }
     }
 
     i {
@@ -25,7 +29,9 @@ const StyledHeader = styled.header`
 function Header() {
     return (
         <StyledHeader>
-            <img src="/images/logo-white.svg" alt="Logo de groupomania" />
+            <Link to="/">
+                <img src="/images/logo-white.svg" alt="Logo de groupomania" />
+            </Link>
             <i className="fa-solid fa-right-from-bracket"></i>
         </StyledHeader>
     )
