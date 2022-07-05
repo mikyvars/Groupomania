@@ -5,14 +5,28 @@ const StyledHeader = styled.header`
     background-color: ${colors.tertiary};
     height: 75px;
     display: flex;
-    justify-content: center;
     align-items: center;
+
+    img {
+        height: 50px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    i {
+        font-size: 26px;
+        color: #fff;
+        position: absolute;
+        right: 25px;
+        cursor: pointer;
+    }
 `
 
 function Header() {
     return (
         <StyledHeader>
-            <img style={{ height: 50 }} src="/images/logo-white.svg" alt="Logo de groupomania" />
+            <img src="/images/logo-white.svg" alt="Logo de groupomania" />
+            <i className="fa-solid fa-right-from-bracket"></i>
         </StyledHeader>
     )
 }
