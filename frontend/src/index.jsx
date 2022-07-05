@@ -21,15 +21,19 @@ const StyledApp = createGlobalStyle`
     }
 `
 
+function App() {
+    return (
+        <BrowserRouter>
+            <StyledApp />
+            <Header />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
+        </BrowserRouter>
+    )
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(
-    <BrowserRouter>
-        <StyledApp />
-        <Header />
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-        </Routes>
-    </BrowserRouter>
-)
+root.render(<App />)
