@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then((post) => {
             const token = req.headers.authorization.split(' ')[1]
-            const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN || 'SECRET_TOKEN')
+            const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN)
             const userId = decodedToken.userId
 
             if (post.userId && post.userId === userId) {
