@@ -23,6 +23,11 @@ export const StyledFormTitle = styled.h1`
     color: #fff;
 `
 
+export const StyledFormSuccess = styled.h2`
+    font-size: 20px;
+    color: ${colors.secondary};
+`
+
 export const StyledFormInput = styled.input`
     width: 100%;
     margin-top: 15px;
@@ -47,4 +52,9 @@ export const StyledFormSubmit = styled.button`
     font-weight: bold;
     cursor: pointer;
     margin-top: 15px;
+
+    :disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
 `
