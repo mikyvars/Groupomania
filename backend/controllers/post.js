@@ -8,6 +8,9 @@ exports.getPosts = (req, res, next) => {
             path: 'postedBy',
             select: 'firstName lastName grade',
         })
+        .sort({
+            posted: -1,
+        })
         .exec((err, posts) => {
             if (err) {
                 res.status(500).json({ error: '3Une erreur est survenue.' })
