@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as Style from './style'
 import axios from 'axios'
@@ -81,6 +81,9 @@ function Login() {
                 <Style.StyledFormError>{errors.password && errors.password.message}</Style.StyledFormError>
 
                 <Style.StyledFormSubmit type="submit">Se connecter</Style.StyledFormSubmit>
+                <Style.StyledFormSignup>
+                    Pas encore inscrit ? Cliquez <Link to="/signup">ici</Link> pour vous inscrire !
+                </Style.StyledFormSignup>
             </Style.StyledForm>
         </React.Fragment>
     )

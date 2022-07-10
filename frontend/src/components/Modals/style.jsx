@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import colors from '../../utils/colors'
+import sizes from '../../utils/sizes'
 
 export const StyledBackground = styled.div`
     background-color: #000;
@@ -21,6 +22,11 @@ export const StyledModal = styled.div`
     z-index: 1;
     padding: 15px;
     opacity: 1;
+    width: 30%;
+
+    @media screen and (max-width: ${sizes.mobile}) {
+        width: 90%;
+    }
 
     .modal__header {
         display: flex;
@@ -40,7 +46,6 @@ export const StyledModal = styled.div`
         flex-direction: column;
         gap: 10px;
         margin-top: 15px;
-        width: 500px;
 
         body {
             opacity: 0.5;

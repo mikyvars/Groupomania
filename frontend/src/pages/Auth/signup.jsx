@@ -129,6 +129,9 @@ function Signup() {
                 >
                     S'inscrire
                 </Style.StyledFormSubmit>
+                <Style.StyledFormSignup>
+                    Déjà inscrit ? Cliquez <Link to="/login">ici</Link> pour vous connecter !
+                </Style.StyledFormSignup>
             </Style.StyledForm>
         </React.Fragment>
     )

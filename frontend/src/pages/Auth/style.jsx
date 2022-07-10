@@ -62,3 +62,12 @@ export const StyledFormSubmit = styled.button`
         cursor: not-allowed;
     }
 `
+export const StyledFormSignup = styled.p`
+    color: #fff;
+    margin-top: 15px;
+
+    a {
+        color: ${colors.secondary};
+        text-decoration: none;
+    }
+`

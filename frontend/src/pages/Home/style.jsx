@@ -15,6 +15,7 @@ export const StyledContent = styled.div`
 
 export const StyledSidebar = styled.aside`
     flex: 1 1 auto;
+    max-width: 500px;
 `
 
 export const StyledSidebarProfile = styled.div`
@@ -63,7 +64,6 @@ export const StyledSidebarContent = styled.div`
             flex-direction: column;
             padding: 5px;
             border-bottom: 1px solid silver;
-            text-align: justify;
 
             &:last-child {
                 border-bottom: none;
@@ -89,7 +89,6 @@ export const StyledSidebarContent = styled.div`
 
 export const StyledFeed = styled.section`
     flex: 3 1 auto;
-    min-width: 700px;
 
     .feed__header {
         display: flex;
@@ -139,7 +138,6 @@ export const StyledFeed = styled.section`
 
             &__content {
                 margin: 15px 0;
-                text-align: justify;
 
                 img {
                     width: 100%;
