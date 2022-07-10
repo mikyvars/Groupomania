@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { isAuthenticated } from '../../services/Authentification'
 import colors from '../../utils/colors'
 
 const StyledHeader = styled.header`
@@ -42,10 +43,12 @@ function Header() {
                     alt="Logo de groupomania"
                 />
             </Link>
-            <i
-                className="fa-solid fa-right-from-bracket"
-                onClick={logOut}
-            ></i>
+            {isAuthenticated() && (
+                <i
+                    className="fa-solid fa-right-from-bracket"
+                    onClick={logOut}
+                ></i>
+            )}
         </StyledHeader>
     )
 }
