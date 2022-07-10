@@ -5,10 +5,12 @@ import { useState } from 'react'
 import axios from 'axios'
 import { getUserData } from '../../services/Authentification'
 import { useEffect } from 'react'
+import moment from 'moment'
 
 function Home() {
     const [currentModal, setCurrentModal] = useState(null)
     const [currentPosts, setCurrentPosts] = useState([])
+    const [currentNews, setCurrentNews] = useState([])
     const [profileData, setProfileData] = useState({ firstName: 'John', lastName: 'Doe', grade: 'Employé' })
 
     const closeModal = () => {
@@ -47,6 +49,22 @@ function Home() {
             .catch((error) => {
                 console.log(error)
             })
+
+        axios
+            .get('/news', {
+                headers: {
+                    Authorization: `Bearer ${getUserData().token}`,
+                },
+                data: {
+                    userId: getUserData().userId,
+                },
+            })
+            .then((result) => {
+                setCurrentNews(result.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }, [])
 
     return (
@@ -68,34 +86,45 @@ function Home() {
                 <Style.StyledSidebarContent>
                     <div className="content__header">
                         <h2 className="content__title">Actualités de l'entreprise</h2>
-                        <button
-                            className="content__new"
-                            onClick={() => setCurrentModal(<ModalNews closeModal={closeModal} />)}
-                        >
-                            Nouvelle actualité
-                        </button>
+                        {getUserData().grade === 'admin' && (
+                            <button
+                                className="content__new"
+                                onClick={() => setCurrentModal(<ModalNews closeModal={closeModal} />)}
+                            >
+                                Nouvelle actualité
+                            </button>
+                        )}
                     </div>
                     <div className="content__announce">
-                        <div className="announce">
-                            <div className="announce__header">
-                                <p className="announce__date">04/07/2022</p>
-                                <p className="announce__title">Ratione omnis sollemnitate hiberna discessit.</p>
-                            </div>
-                            <p className="announce__content">
-                                Uxoresque hastam pacto offert si ex matrimonii et elegerit discessura hastam illis in tempus sit est ad coniunx futura solvitur in species post id marito ex uxoresque
-                                quo incredibile si.
-                            </p>
-                        </div>
-                        <div className="announce">
-                            <div className="announce__header">
-                                <p className="announce__date">04/07/2022</p>
-                                <p className="announce__title">Ratione omnis sollemnitate hiberna discessit.</p>
-                            </div>
-                            <p className="announce__content">
-                                Uxoresque hastam pacto offert si ex matrimonii et elegerit discessura hastam illis in tempus sit est ad coniunx futura solvitur in species post id marito ex uxoresque
-                                quo incredibile si.
-                            </p>
-                        </div>
+                        {currentNews.length === 0
+                            ? "Il n'y a rien à afficher :c"
+                            : currentNews.map((element, index) => {
+                                  const date = moment(new Date(element.posted)).format('DD/MM/YYYY')
+
+                                  return (
+                                      <div
+                                          className="announce"
+                                          key={index}
+                                      >
+                                          <div className="announce__header">
+                                              <p className="announce__date">{date}</p>
+                                              <p className="announce__title">{element.title}</p>
+                                          </div>
+                                          <p className="announce__content">{element.content}</p>
+                                      </div>
+                                  )
+                              })}
+
+                        {/* <div className="announce">
+                                <div className="announce__header">
+                                    <p className="announce__date">04/07/2022</p>
+                                    <p className="announce__title">Ratione omnis sollemnitate hiberna discessit.</p>
+                                </div>
+                                <p className="announce__content">
+                                    Uxoresque hastam pacto offert si ex matrimonii et elegerit discessura hastam illis in tempus sit est ad coniunx futura solvitur in species post id marito ex uxoresque
+                                    quo incredibile si.
+                                </p>
+                            </div> */}
                     </div>
                 </Style.StyledSidebarContent>
             </Style.StyledSidebar>

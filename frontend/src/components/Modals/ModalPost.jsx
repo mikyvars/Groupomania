@@ -38,12 +38,15 @@ function ModalPost({ closeModal }) {
     return (
         <>
             <StyledBackground></StyledBackground>
-            <StyledModal onSubmit={handleSubmit(onSubmit)}>
+            <StyledModal>
                 <div className="modal__header">
                     <p>Nouveau post</p>
                     <span onClick={closeModal}>&times;</span>
                 </div>
-                <form className="modal__content">
+                <form
+                    className="modal__content"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
                     <textarea
                         cols="30"
                         rows="10"

@@ -10,7 +10,8 @@ exports.getNews = (req, res) => {
         .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))
 }
 
-exports.addNews = (req, res) => {
+exports.addNews = (req, res, next) => {
+    console.log(req.body)
     const newsObject = req.body
     const news = new News({
         ...newsObject,
@@ -18,5 +19,8 @@ exports.addNews = (req, res) => {
 
     news.save()
         .then(() => res.status(201).json({ message: 'Votre actualité a bien été envoyée.' }))
-        .catch((error) => res.status(500).json({ error }))
+        .catch((error) => {
+            res.status(500).json({ error })
+            console.log(error)
+        })
 }

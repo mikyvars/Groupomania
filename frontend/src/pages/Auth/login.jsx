@@ -29,6 +29,7 @@ function Login() {
                     JSON.stringify({
                         token: result.data.token,
                         userId: result.data.userId,
+                        grade: result.data.grade,
                     })
                 )
                 navigate('/')
