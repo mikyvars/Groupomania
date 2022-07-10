@@ -1,14 +1,23 @@
 const fs = require('fs')
 const Post = require('../models/Post')
+const User = require('../models/User')
 
 exports.getPosts = (req, res, next) => {
-    Post.find()
-        .then((posts) => res.status(200).json(posts))
-        .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
+    const test = Post.find()
+        .populate({
+            path: 'postedBy',
+        })
+        .exec((err, posts) => {
+            if (err) {
+                res.status(500).json({ error: '3Une erreur est survenue.' })
+            } else {
+                res.status(200).json(posts)
+            }
+        })
 }
 
 exports.addPost = (req, res, next) => {
-    const postObject = req.body.post
+    const postObject = JSON.parse(req.body.post)
     const post = new Post({
         ...postObject,
         imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
