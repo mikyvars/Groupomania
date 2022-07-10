@@ -24,6 +24,13 @@ function Login() {
             },
         })
             .then((result) => {
+                window.localStorage.setItem(
+                    'auth',
+                    JSON.stringify({
+                        token: result.data.token,
+                        userId: result.data.userId,
+                    })
+                )
                 navigate('/')
             })
             .catch((error) => {
@@ -61,7 +68,7 @@ function Login() {
                 <Style.StyledFormError>{errors.email && errors.email.message}</Style.StyledFormError>
 
                 <Style.StyledFormInput
-                    defaultValue="Mysecretpass1!"
+                    defaultValue="mysecretpass"
                     type="password"
                     placeholder="Mot de passe"
                     {...register('password', {

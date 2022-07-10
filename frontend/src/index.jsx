@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import Signup from './pages/Auth/signup'
 import Login from './pages/Auth/login'
+import Auth from './components/Auth'
 
 const StyledApp = createGlobalStyle`
     body {
@@ -27,9 +28,18 @@ function App() {
             <StyledApp />
             <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/login" element={<Login />} />
+                <Route
+                    path="/"
+                    element={<Auth Component={Home} />}
+                />
+                <Route
+                    path="/signup"
+                    element={<Signup />}
+                />
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />
             </Routes>
         </BrowserRouter>
     )
