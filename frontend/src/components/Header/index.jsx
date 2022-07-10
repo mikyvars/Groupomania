@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../../utils/colors'
 
@@ -27,12 +27,25 @@ const StyledHeader = styled.header`
 `
 
 function Header() {
+    const navigate = useNavigate()
+
+    function logOut() {
+        localStorage.clear()
+        navigate('/login')
+    }
+
     return (
         <StyledHeader>
             <Link to="/">
-                <img src="/images/logo-white.svg" alt="Logo de groupomania" />
+                <img
+                    src="/images/logo-white.svg"
+                    alt="Logo de groupomania"
+                />
             </Link>
-            <i className="fa-solid fa-right-from-bracket"></i>
+            <i
+                className="fa-solid fa-right-from-bracket"
+                onClick={logOut}
+            ></i>
         </StyledHeader>
     )
 }
