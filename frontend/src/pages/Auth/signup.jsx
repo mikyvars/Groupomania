@@ -22,7 +22,7 @@ function Signup() {
     const onSubmit = (data) => {
         axios({
             method: 'POST',
-            url: 'http://localhost:3000/api/auth/signup',
+            url: '/auth/signup',
             data: {
                 firstName: data.firstname,
                 lastName: data.lastname,

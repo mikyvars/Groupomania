@@ -17,7 +17,7 @@ function Login() {
     const onSubmit = (data) => {
         axios({
             method: 'POST',
-            url: 'http://localhost:3000/api/auth/login',
+            url: '/auth/login',
             data: {
                 email: data.email,
                 password: data.password,

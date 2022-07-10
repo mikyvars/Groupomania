@@ -89,6 +89,7 @@ export const StyledSidebarContent = styled.div`
 
 export const StyledFeed = styled.section`
     flex: 3 1 auto;
+    min-width: 700px;
 
     .feed__header {
         display: flex;

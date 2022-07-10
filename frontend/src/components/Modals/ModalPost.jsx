@@ -11,19 +11,18 @@ function ModalPost({ closeModal }) {
     } = useForm({ mode: 'onTouched' })
 
     const onSubmit = (data) => {
-        axios({
-            method: 'POST',
-            url: 'http://localhost:3000/api/post',
-            headers: {
-                Authorization: `Bearer ${getUserData().token}`,
-            },
-            data: {
-                post: {
-                    userId: getUserData().userId,
-                    content: data.content,
+        let formData = new FormData()
+        formData.append('postedBy', getUserData().userId)
+        formData.append('content', data.content)
+        formData.append('image', data.image[0])
+
+        axios
+            .post('/post', formData, {
+                headers: {
+                    Authorization: `Bearer ${getUserData().token}`,
+                    'Content-Type': 'multipart/form-data',
                 },
-            },
-        })
+            })
             .then((result) => {
                 closeModal()
             })
@@ -57,6 +56,11 @@ function ModalPost({ closeModal }) {
                         })}
                     ></textarea>
                     <p className="modal__error">{errors.content && errors.content.message}</p>
+                    <input
+                        type="file"
+                        accept="image/png,image/jpg,image/jpeg,image/gif"
+                        {...register('image')}
+                    />
                     <button type="submit">Envoyer</button>
                 </form>
             </StyledModal>

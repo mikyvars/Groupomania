@@ -2,12 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
+import axios from 'axios'
 
 import Header from './components/Header'
 import Home from './pages/Home'
 import Signup from './pages/Auth/signup'
 import Login from './pages/Auth/login'
 import Auth from './components/Auth'
+
+axios.defaults.baseURL = 'http://192.168.1.44:3000/api'
 
 const StyledApp = createGlobalStyle`
     body {
