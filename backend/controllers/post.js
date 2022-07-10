@@ -3,7 +3,7 @@ const Post = require('../models/Post')
 const User = require('../models/User')
 
 exports.getPosts = (req, res, next) => {
-    const test = Post.find()
+    Post.find()
         .populate({
             path: 'postedBy',
             select: 'firstName lastName grade',
@@ -13,7 +13,7 @@ exports.getPosts = (req, res, next) => {
         })
         .exec((err, posts) => {
             if (err) {
-                res.status(500).json({ error: '3Une erreur est survenue.' })
+                res.status(500).json({ error: 'Une erreur est survenue.' })
             } else {
                 res.status(200).json(posts)
             }
