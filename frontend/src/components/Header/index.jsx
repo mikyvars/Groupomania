@@ -31,7 +31,7 @@ function Header() {
     const navigate = useNavigate()
 
     function logOut() {
-        localStorage.clear()
+        localStorage.removeItem('user')
         navigate('/login')
     }
 

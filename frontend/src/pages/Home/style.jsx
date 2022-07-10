@@ -35,8 +35,24 @@ export const StyledSidebarProfile = styled.div`
 export const StyledSidebarContent = styled.div`
     margin-top: 50px;
 
-    .content__title {
-        font-size: 16px;
+    .content__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .content__title {
+            font-size: 16px;
+        }
+
+        .content__new {
+            cursor: pointer;
+            height: 30px;
+            border: none;
+            color: ${colors.tertiary};
+            font-size: 14px;
+            font-weight: bold;
+            background-color: ${colors.secondary};
+        }
     }
 
     .content__announce {
@@ -74,8 +90,24 @@ export const StyledSidebarContent = styled.div`
 export const StyledFeed = styled.section`
     flex: 3 1 auto;
 
-    .feed__title {
-        font-size: 16px;
+    .feed__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .feed__title {
+            font-size: 16px;
+        }
+
+        .feed__new {
+            cursor: pointer;
+            height: 30px;
+            border: none;
+            color: ${colors.tertiary};
+            font-size: 14px;
+            font-weight: bold;
+            background-color: ${colors.secondary};
+        }
     }
 
     .feed__posts {
@@ -135,3 +167,4 @@ export const StyledFeed = styled.section`
         margin-top: 50px;
     }
 `
+export const StyledModal = styled.div``
