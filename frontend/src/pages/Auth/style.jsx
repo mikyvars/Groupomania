@@ -26,6 +26,10 @@ export const StyledFormTitle = styled.h1`
 export const StyledFormSuccess = styled.h2`
     font-size: 20px;
     color: ${colors.secondary};
+
+    a {
+        color: inherit;
+    }
 `
 
 export const StyledFormInput = styled.input`
