@@ -25,7 +25,7 @@ function Login() {
         })
             .then((result) => {
                 window.localStorage.setItem(
-                    'auth',
+                    'user',
                     JSON.stringify({
                         token: result.data.token,
                         userId: result.data.userId,
