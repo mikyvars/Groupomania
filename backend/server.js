@@ -4,8 +4,9 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const path = require('path')
 
-const userRoutes = require('./routes/user')
+const authRoutes = require('./routes/auth')
 const postRoutes = require('./routes/post')
+const userRoutes = require('./routes/user')
 
 mongoose
     .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -24,7 +25,8 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json())
 app.use('/images', express.static(path.join(__dirname, 'images')))
-app.use('/api/auth', userRoutes)
+app.use('/api/auth', authRoutes)
 app.use('/api/post', postRoutes)
+app.use('/api/user', userRoutes)
 
 module.exports = app

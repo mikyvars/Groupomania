@@ -16,20 +16,37 @@ function Home() {
     }
 
     useEffect(() => {
-        axios({
-            method: 'GET',
-            url: '/post',
-            headers: {
-                Authorization: `Bearer ${getUserData().token}`,
-            },
-            data: {
-                userId: getUserData().userId,
-            },
-        })
+        axios
+            .get('/user/' + getUserData().userId, {
+                headers: {
+                    Authorization: `Bearer ${getUserData().token}`,
+                },
+                data: {
+                    userId: getUserData().userId,
+                },
+            })
+            .then((result) => {
+                setProfileData(result.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+        axios
+            .get('/post', {
+                headers: {
+                    Authorization: `Bearer ${getUserData().token}`,
+                },
+                data: {
+                    userId: getUserData().userId,
+                },
+            })
             .then((result) => {
                 setCurrentPosts(result.data)
             })
-            .catch((error) => {})
+            .catch((error) => {
+                console.log(error)
+            })
     }, [])
 
     return (
@@ -42,8 +59,10 @@ function Home() {
                         className="profile__avatar"
                     />
                     <div className="profile__identity">
-                        <p className="profile__name">John Doe</p>
-                        <p className="profile__status">Administrateur</p>
+                        <p className="profile__name">{`${profileData.firstName.charAt(0).toUpperCase() + profileData.firstName.slice(1)} ${
+                            profileData.lastName.charAt(0).toUpperCase() + profileData.lastName.slice(1)
+                        }`}</p>
+                        <p className="profile__status">{profileData.grade === 'user' ? 'Employé' : 'Administrateur'}</p>
                     </div>
                 </Style.StyledSidebarProfile>
                 <Style.StyledSidebarContent>
@@ -95,7 +114,6 @@ function Home() {
                     {currentPosts.length === 0
                         ? "Il n'y a rien à afficher :c"
                         : currentPosts.map((element, index) => {
-                              console.log('element', element)
                               return (
                                   <div
                                       className="post"
