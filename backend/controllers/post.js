@@ -18,7 +18,7 @@ exports.getPosts = (req, res, next) => {
 }
 
 exports.addPost = (req, res, next) => {
-    const postObject = JSON.parse(req.body.post)
+    const postObject = req.body.post
     const post = new Post({
         ...postObject,
         imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
