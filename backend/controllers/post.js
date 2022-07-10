@@ -6,6 +6,7 @@ exports.getPosts = (req, res, next) => {
     const test = Post.find()
         .populate({
             path: 'postedBy',
+            select: 'firstName lastName grade',
         })
         .exec((err, posts) => {
             if (err) {
