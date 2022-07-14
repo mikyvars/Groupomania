@@ -6,33 +6,41 @@ export const isAuthenticated = () => {
     return token != null && !isExpired(token)
 }
 
-export function login(data) {
-    axios
-        .post('/auth/login', data)
-        .then((response) => {
+export async function login(data) {
+    try {
+        const result = await axios.post('/auth/login', data)
+
+        if (result.status === 200) {
             window.localStorage.setItem(
                 'user',
                 JSON.stringify({
-                    token: response.data.token,
-                    userId: response.data.userId,
-                    grade: response.data.grade,
+                    token: result.data.token,
+                    userId: result.data.userId,
+                    grade: result.data.grade,
                 })
             )
-        })
-        .catch((error) => {
-            return [false, error.response.status]
-        })
+
+            return { success: true }
+        }
+
+        return { success: false, error: 'Une erreur est survenue.' }
+    } catch (error) {
+        return { success: false, error }
+    }
 }
 
-export function signup(data) {
-    axios
-        .post('/auth/signup', data)
-        .then((response) => {
-            return [true, null]
-        })
-        .catch((error) => {
-            return [false, error.response.status]
-        })
+export async function signup(data) {
+    try {
+        const result = await axios.post('/auth/signup', data)
+
+        if (result.status === 201) {
+            return { success: true }
+        }
+
+        return { success: false, error: 'Une erreur est survenue.' }
+    } catch (error) {
+        return { success: false, error }
+    }
 }
 
 export function logout() {

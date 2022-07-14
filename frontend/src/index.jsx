@@ -1,22 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
+import ReactDOM from 'react-dom/client'
 import axios from 'axios'
+import './custom.scss'
 
 import Header from './components/Header'
 import Home from './pages/Home'
-import Signup from './pages/Auth/signup'
-import Login from './pages/Auth/login'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
 import Auth from './components/Auth'
-
-axios.defaults.baseURL = 'http://192.168.1.44:3000/api'
+axios.defaults.baseURL = process.env.REACT_APP_API_URL
 
 const StyledApp = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        height: 100%;
+        height: 100vh;
         font-family: Roboto;
     }
 
@@ -31,18 +30,9 @@ function App() {
             <StyledApp />
             <Header />
             <Routes>
-                <Route
-                    path="/"
-                    element={<Auth Component={Home} />}
-                />
-                <Route
-                    path="/signup"
-                    element={<Signup />}
-                />
-                <Route
-                    path="/login"
-                    element={<Login />}
-                />
+                <Route path="/" element={<Auth Component={Home} />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
         </BrowserRouter>
     )

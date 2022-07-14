@@ -29,7 +29,7 @@ exports.addPost = (req, res, next) => {
 
     post.save()
         .then(() => res.status(201).json({ message: 'Votre publication a bien été envoyée.' }))
-        .catch((error) => res.status(500).json({ error }))
+        .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))
 }
 
 exports.modifyPost = (req, res, next) => {
