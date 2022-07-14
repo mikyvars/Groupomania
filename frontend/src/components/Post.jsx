@@ -53,6 +53,27 @@ function Post({ data, refreshData }) {
         }
     }
 
+    const onDelete = async () => {
+        if (window.confirm('Voulez vous supprimez cette publication?')) {
+            try {
+                const result = await axios.delete(`/post/${data._id}`, {
+                    headers: {
+                        Authorization: `Bearer ${getUserData().token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                })
+
+                if (result.status === 200) {
+                    refreshData()
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+    console.log(data.postedBy === getUserData().userId, getUserData().grade === 'admin')
+
     return (
         <>
             <article className="bg-light p-3 mt-2 rounded-1 border border-1" style={{ borderColor: 'silver' }}>
@@ -68,17 +89,19 @@ function Post({ data, refreshData }) {
                             Publié le {dateFormat} à {timeFormat}
                         </p>
                     </div>
-                    <div style={{ justifySelf: 'flex-end' }}>
-                        <Dropdown>
-                            <Dropdown.Toggle bsPrefix="p-0" className="bg-transparent border-0">
-                                <ThreeDotsVertical style={{ cursor: 'pointer' }} className="text-dark" />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={handleModalOpen}>Modifier</Dropdown.Item>
-                                <Dropdown.Item>Supprimer</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </div>
+                    {(data.postedBy._id === getUserData().userId || getUserData().grade === 'admin') && (
+                        <div style={{ justifySelf: 'flex-end' }}>
+                            <Dropdown>
+                                <Dropdown.Toggle bsPrefix="p-0" className="bg-transparent border-0">
+                                    <ThreeDotsVertical style={{ cursor: 'pointer' }} className="text-dark" />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={handleModalOpen}>Modifier</Dropdown.Item>
+                                    <Dropdown.Item onClick={onDelete}>Supprimer</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                    )}
                 </div>
                 <div className="my-3">
                     {content} {imageUrl && <Image src={imageUrl} style={{ height: '300px', width: '100%', objectFit: 'cover' }} />}
