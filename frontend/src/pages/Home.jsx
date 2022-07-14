@@ -110,7 +110,7 @@ function Home() {
             </Form>
             <div>
                 {currentData.slice((currentPage - 1) * 5, currentPage * 5).map((element) => (
-                    <Post key={element._id} data={element} />
+                    <Post key={element._id} data={element} refreshData={fetchData} />
                 ))}
                 {
                     <Pagination className="mt-2 justify-content-center">

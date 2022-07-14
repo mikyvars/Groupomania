@@ -35,10 +35,10 @@ exports.addPost = (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
     const postObject = req.file
         ? {
-              ...req.body.post,
+              ...req.body,
               imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
           }
-        : { ...req.body.post }
+        : { ...req.body }
 
     Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Votre publication a bien été mise à jour.' }))
