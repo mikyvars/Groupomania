@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button'
 import Pagination from 'react-bootstrap/Pagination'
 import Alert from 'react-bootstrap/Alert'
 import Post from '../components/Post'
+import Spinner from 'react-bootstrap/Spinner'
 
 function Home() {
     const [currentData, setCurrentData] = useState([])
@@ -62,7 +63,10 @@ function Home() {
             })
 
             if (result.status === 200) {
-                setCurrentData(result.data)
+                // remove timeout before sending to prod
+                setTimeout(() => {
+                    setCurrentData(result.data)
+                }, 1000)
             }
         } catch (error) {
             console.log(error)
@@ -109,16 +113,13 @@ function Home() {
                 </Form.Group>
             </Form>
             <div>
-                {currentData.slice((currentPage - 1) * 5, currentPage * 5).map((element) => (
-                    <Post key={element._id} postId={element._id} refreshData={fetchData} />
-                ))}
-                {
-                    <Pagination className="mt-2 justify-content-center">
-                        <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
-                        {currentPagination.length > 1 && currentPagination}
-                        <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(currentData.length / 5)} />
-                    </Pagination>
-                }
+                {currentData.length === 0 ? (
+                    <Spinner animation="border" role="status" variant="danger" className="fs-5 mx-auto mt-5 d-block" style={{ height: '75px', width: '75px' }}>
+                        <span className="visually-hidden">Chargement...</span>
+                    </Spinner>
+                ) : (
+                    currentData.slice((currentPage - 1) * 5, currentPage * 5).map((element) => <Post key={element._id} postId={element._id} refreshData={fetchData} />)
+                )}
             </div>
         </Container>
     )
