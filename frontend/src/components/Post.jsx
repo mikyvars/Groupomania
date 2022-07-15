@@ -37,7 +37,6 @@ function Post({ postId, refreshData }) {
                 },
             })
 
-            console.log(result)
             setCurrentData(result.data)
         } catch (error) {
             console.log(error)
@@ -86,6 +85,28 @@ function Post({ postId, refreshData }) {
         }
     }
 
+    const onLike = async () => {
+        try {
+            const result = await axios.post(
+                `/post/${postId}/like`,
+                {
+                    userId: getUserData().userId,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${getUserData().token}`,
+                    },
+                }
+            )
+
+            if (result.status === 200) {
+                fetchData()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -124,7 +145,7 @@ function Post({ postId, refreshData }) {
                         {currentData.content} {currentData.imageUrl && <Image src={currentData.imageUrl} style={{ height: '300px', width: '100%', objectFit: 'cover' }} />}
                     </div>
                     <div className="d-flex align-items-center">
-                        <HeartFill className="fs-5 text-danger" style={{ cursor: 'pointer' }} />
+                        <HeartFill className="fs-5 text-danger" style={{ cursor: 'pointer' }} onClick={onLike} />
                         <p className="fs-7 ms-1">{currentData.usersLiked.length}</p>
                     </div>
                 </article>
