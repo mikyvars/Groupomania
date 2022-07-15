@@ -120,6 +120,11 @@ function Home() {
                 ) : (
                     currentData.slice((currentPage - 1) * 5, currentPage * 5).map((element) => <Post key={element._id} postId={element._id} refreshData={fetchData} />)
                 )}
+                <Pagination className={currentData.length === 0 ? 'd-none' : 'mt-2 justify-content-center'}>
+                    <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
+                    {currentPagination.length > 1 && currentPagination}
+                    <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(currentData.length / 5)} />
+                </Pagination>
             </div>
         </Container>
     )

@@ -109,6 +109,7 @@ function Post({ postId, refreshData }) {
 
     useEffect(() => {
         fetchData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -124,7 +125,7 @@ function Post({ postId, refreshData }) {
                                 {currentData.postedBy.firstName} {currentData.postedBy.lastName}
                             </p>
                             <p className="fs-8">
-                                Publié le {new Date(currentData.posted).toLocaleDateString('fr-FR')} à {new Date(currentData.posted).toLocaleDateString('fr-FR')}
+                                Publié le {new Date(currentData.posted).toLocaleDateString('fr-FR')} à {new Date(currentData.posted).toLocaleTimeString('fr-FR')}
                             </p>
                         </div>
                         {(currentData.postedBy._id === getUserData().userId || getUserData().grade === 'admin') && (
