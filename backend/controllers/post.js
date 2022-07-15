@@ -20,6 +20,16 @@ exports.getPosts = (req, res, next) => {
         })
 }
 
+exports.getPost = (req, res) => {
+    Post.findOne({ _id: req.params.id })
+        .populate({
+            path: 'postedBy',
+            select: 'firstName lastName grade',
+        })
+        .then((post) => res.status(200).json(post))
+        .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))
+}
+
 exports.addPost = (req, res, next) => {
     const postObject = req.body
     const post = new Post({

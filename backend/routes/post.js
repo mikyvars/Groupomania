@@ -7,6 +7,7 @@ const compareId = require('../middlewares/compareId')
 const multer = require('../middlewares/multer-config')
 
 router.get('/', auth, postController.getPosts)
+router.get('/:id', auth, postController.getPost)
 router.post('/', auth, multer, postController.addPost)
 router.put('/:id', auth, multer, compareId, postController.modifyPost)
 router.delete('/:id', auth, compareId, postController.deletePost)
