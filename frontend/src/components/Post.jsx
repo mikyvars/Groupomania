@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { getUserData } from '../services/Authentification'
-import { ThreeDotsVertical, HeartFill } from 'react-bootstrap-icons'
+import { ThreeDotsVertical, Heart, HeartFill } from 'react-bootstrap-icons'
 import Image from 'react-bootstrap/Image'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Modal from 'react-bootstrap/Modal'
@@ -146,7 +146,12 @@ function Post({ postId, refreshData }) {
                         {currentData.content} {currentData.imageUrl && <Image src={currentData.imageUrl} style={{ height: '300px', width: '100%', objectFit: 'cover' }} />}
                     </div>
                     <div className="d-flex align-items-center">
-                        <HeartFill className="fs-5 text-danger" style={{ cursor: 'pointer' }} onClick={onLike} />
+                        {currentData.usersLiked.includes(getUserData().userId) ? (
+                            <HeartFill className="fs-5 text-danger" style={{ cursor: 'pointer' }} onClick={onLike} />
+                        ) : (
+                            <Heart className="fs-5 text-danger" style={{ cursor: 'pointer' }} onClick={onLike} />
+                        )}
+
                         <p className="fs-7 ms-1">{currentData.usersLiked.length}</p>
                     </div>
                 </article>
