@@ -1,5 +1,3 @@
-![Logo](https://imgur.com/a/1SFr1fO)
-
 # Groupomania
 
 Groupomania est le dernier projet de la formation "Développeur Web" fournie par OpenClassroom. Le but étant de crééer une application d'échange pour les membres d'une entreprise.
