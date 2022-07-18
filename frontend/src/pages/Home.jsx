@@ -94,29 +94,29 @@ function Home() {
     }, [currentPage, currentData])
 
     return (
-        <Container className="mt-4 p-3 w-auto" style={{ maxWidth: '700px' }}>
+        <Container className="mt-2 p-3 w-auto" style={{ maxWidth: '700px' }}>
             <Alert show={alertVisibility} variant="danger" onClose={() => setAlertVisibility(false)} dismissible>
                 <Alert.Heading>Oups, une erreur est survenue {<EmojiFrown />}</Alert.Heading>
                 <p>{currentError}</p>
             </Alert>
 
             <Form className="p-3 bg-gprimary rounded-3" onSubmit={handleSubmit(onSubmit)}>
-                <div className="d-flex align-items-center mb-2 text-white">
-                    <p>
+                <div className="d-flex align-items-center text-white">
+                    <h1 className="fs-7">
                         Connecté en tant que
                         <span className="text-capitalize ms-1">
                             "{getUserData().userData.firstName} {getUserData().userData.lastName}"
                         </span>
-                    </p>
+                    </h1>
                 </div>
-                <Form.Group controlId="formContent">
+                <Form.Group controlId="formContent" className="mt-2">
                     <Form.FloatingLabel controlId="floatingContent" label="Nouvelle publication...">
                         <Form.Control as="textarea" placeholder="Nouvelle publication..." required {...register('content')} minLength="10" />
                         <Form.Control.Feedback type="invalid">{errors.content && errors.content.message}</Form.Control.Feedback>
                     </Form.FloatingLabel>
                 </Form.Group>
                 <Form.Group className="mt-2">
-                    <Form.Control type="file" {...register('image')} />
+                    <Form.Control type="file" {...register('image')} aria-label="Ajouter une image" />
                 </Form.Group>
                 <Form.Group className="mt-3">
                     <Button type="submit">Publier</Button>

@@ -118,7 +118,12 @@ function Post({ postId, refreshData }) {
                 <article className="bg-light p-3 mt-2 rounded-1 border border-1" style={{ borderColor: 'silver' }}>
                     <div className="d-flex align-items-center justify-content-between">
                         <div>
-                            <Image src="/images/avatar.png" className="rounded-circle" style={{ height: '50px' }} />
+                            <Image
+                                src="/images/avatar.png"
+                                alt={`Photo de profil de ${currentData.postedBy.firstName} ${currentData.postedBy.lastName}`}
+                                className="rounded-circle"
+                                style={{ height: '50px' }}
+                            />
                         </div>
                         <div className="ms-2 flex-grow-1">
                             <p className="text-capitalize">
@@ -131,7 +136,7 @@ function Post({ postId, refreshData }) {
                         {(currentData.postedBy._id === getUserData().userId || getUserData().isAdmin === true) && (
                             <div style={{ justifySelf: 'flex-end' }}>
                                 <Dropdown>
-                                    <Dropdown.Toggle bsPrefix="p-0" className="bg-transparent border-0">
+                                    <Dropdown.Toggle bsPrefix="p-0" className="bg-transparent border-0" aria-label="Options de la publication">
                                         <ThreeDotsVertical style={{ cursor: 'pointer' }} className="text-dark" />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
