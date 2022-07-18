@@ -18,6 +18,10 @@ Groupomania est le dernier projet de la formation "Développeur Web" fournie par
     npm start
 ```
 
+## Modifier les variables d'environnement
+
+Renommer les fichiers .env.exemple dans les dossiers frontend/ et backend/ et saisir correctement vos informations.
+
 ## Spécifications fonctionnelles
 
 -   La session de l’utilisateur persiste pendant qu’il est connecté
