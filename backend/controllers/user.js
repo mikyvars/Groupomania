@@ -6,7 +6,7 @@ exports.getUser = (req, res, next) => {
             res.status(200).json({
                 firstName: user.firstName,
                 lastName: user.lastName,
-                grade: user.grade,
+                isAdmin: user.isAdmin,
             })
         )
         .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))

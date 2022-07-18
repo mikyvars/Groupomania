@@ -42,8 +42,12 @@ exports.login = (req, res, next) => {
 
                     res.status(200).json({
                         userId: user._id,
+                        userData: {
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                        },
                         token: jwt.sign({ userId: user._id }, process.env.SECRET_TOKEN, { expiresIn: '7d' }),
-                        grade: user.grade,
+                        isAdmin: user.isAdmin,
                     })
                 })
                 .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))

@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
             } else {
                 User.findOne({ _id: userId })
                     .then((user) => {
-                        if (user.grade == 'admin') {
+                        if (user.isAdmin && user.isAdmin === true) {
                             next()
                         } else {
                             res.status(403).json({ message: 'Requête non authorisée.' })

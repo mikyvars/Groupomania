@@ -59,7 +59,7 @@ function Post({ postId, refreshData }) {
 
             if (result.status === 200) {
                 setModalVisibility(false)
-                refreshData()
+                fetchData()
             }
         } catch (error) {
             console.log(error)
@@ -128,7 +128,7 @@ function Post({ postId, refreshData }) {
                                 Publié le {new Date(currentData.posted).toLocaleDateString('fr-FR')} à {new Date(currentData.posted).toLocaleTimeString('fr-FR')}
                             </p>
                         </div>
-                        {(currentData.postedBy._id === getUserData().userId || getUserData().grade === 'admin') && (
+                        {(currentData.postedBy._id === getUserData().userId || getUserData().isAdmin === true) && (
                             <div style={{ justifySelf: 'flex-end' }}>
                                 <Dropdown>
                                     <Dropdown.Toggle bsPrefix="p-0" className="bg-transparent border-0">

@@ -17,6 +17,7 @@ function Home() {
     const [currentPage, setCurrentPage] = useState(1)
     const [currentPagination, setCurrentPagination] = useState([])
     const [currentError, setCurrentError] = useState("Désolé, le message d'erreur a du se perdre dans le multivers.")
+    const [isDataLoading, setIsDataLoading] = useState(true)
     const [alertVisibility, setAlertVisibility] = useState(false)
     const {
         register,
@@ -66,6 +67,7 @@ function Home() {
                 // remove timeout before sending to prod
                 setTimeout(() => {
                     setCurrentData(result.data)
+                    setIsDataLoading(false)
                 }, 1000)
             }
         } catch (error) {
@@ -99,6 +101,14 @@ function Home() {
             </Alert>
 
             <Form className="p-3 bg-gprimary rounded-3" onSubmit={handleSubmit(onSubmit)}>
+                <div className="d-flex align-items-center mb-2 text-white">
+                    <p>
+                        Connecté en tant que
+                        <span className="text-capitalize ms-1">
+                            "{getUserData().userData.firstName} {getUserData().userData.lastName}"
+                        </span>
+                    </p>
+                </div>
                 <Form.Group controlId="formContent">
                     <Form.FloatingLabel controlId="floatingContent" label="Nouvelle publication...">
                         <Form.Control as="textarea" placeholder="Nouvelle publication..." required {...register('content')} minLength="10" />
@@ -114,17 +124,23 @@ function Home() {
             </Form>
             <div>
                 {currentData.length === 0 ? (
-                    <Spinner animation="border" role="status" variant="danger" className="fs-5 mx-auto mt-5 d-block" style={{ height: '75px', width: '75px' }}>
-                        <span className="visually-hidden">Chargement...</span>
-                    </Spinner>
+                    isDataLoading ? (
+                        <Spinner animation="border" role="status" variant="danger" className="fs-5 mx-auto mt-5 d-block" style={{ height: '75px', width: '75px' }}>
+                            <span className="visually-hidden">Chargement...</span>
+                        </Spinner>
+                    ) : (
+                        <p className="text-center fs-5 mt-5 d-block">Il n'y a rien à afficher ici :c</p>
+                    )
                 ) : (
                     currentData.slice((currentPage - 1) * 5, currentPage * 5).map((element) => <Post key={element._id} postId={element._id} refreshData={fetchData} />)
                 )}
-                <Pagination className={currentData.length === 0 ? 'd-none' : 'mt-2 justify-content-center'}>
-                    <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
-                    {currentPagination.length > 1 && currentPagination}
-                    <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(currentData.length / 5)} />
-                </Pagination>
+                {currentData.length > 5 && (
+                    <Pagination className={currentData.length === 0 ? 'd-none' : 'mt-2 justify-content-center'}>
+                        <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
+                        {currentPagination.length > 1 && currentPagination}
+                        <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(currentData.length / 5)} />
+                    </Pagination>
+                )}
             </div>
         </Container>
     )

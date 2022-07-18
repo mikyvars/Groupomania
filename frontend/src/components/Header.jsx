@@ -1,13 +1,34 @@
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { isAuthenticated, logout } from '../services/Authentification'
+import { getUserData, isAuthenticated, logout } from '../services/Authentification'
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import { useState } from 'react'
+import axios from 'axios'
+import { useEffect } from 'react'
 
 function Header() {
+    const [currentData, setCurrentData] = useState({})
     const navigate = useNavigate()
+
+    const fetchData = async () => {
+        try {
+            const result = await axios.get(`/user/${getUserData().userId}`, {
+                headers: {
+                    Authorization: `Bearer ${getUserData().token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+
+            if (result.status === 200) {
+                setCurrentData(result.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const handleLogout = () => {
         const success = logout()
@@ -17,6 +38,10 @@ function Header() {
         }
     }
 
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     return (
         <header className="bg-gprimary">
             <Navbar expand="sm">
@@ -24,9 +49,10 @@ function Header() {
                     <Navbar.Brand>
                         <Image src="/images/logo-white.svg" alt="Logo de groupomania" style={{ maxHeight: '40px' }} />
                     </Navbar.Brand>
+                    {currentData.length > 0 && <Navbar.Brand className="fs-6 text-secondary">{`Connecté en tant que ${currentData.firstName} ${currentData.lastName}`}</Navbar.Brand>}
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end mt-3 mt-sm-0">
-                        <Nav>
+                        <Nav className="align-items-center">
                             {isAuthenticated() ? (
                                 <Nav.Link className="btn btn-light" onClick={handleLogout}>
                                     Déconnexion

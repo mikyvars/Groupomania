@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 
         User.findOne({ _id: userId })
             .then((user) => {
-                if (user.grade === 'admin') {
+                if (user.isAdmin && user.isAdmin === true) {
                     next()
                 } else {
                     res.status(401).json({ message: "Vous n'avez pas accès à cette fonctionnalité." })

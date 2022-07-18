@@ -17,6 +17,17 @@ $utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, '$key', 'bg');
 
 @import '~bootstrap/scss/bootstrap';
 
+body {
+    font-family: Lato;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+p {
+    margin: 0;
+}
+
 .bg-gprimary {
     background-color: var(--bs-gprimary);
 }

@@ -6,7 +6,7 @@ exports.getPosts = (req, res, next) => {
     Post.find()
         .populate({
             path: 'postedBy',
-            select: 'firstName lastName grade',
+            select: 'firstName lastName',
         })
         .sort({
             posted: -1,
@@ -24,7 +24,7 @@ exports.getPost = (req, res) => {
     Post.findOne({ _id: req.params.id })
         .populate({
             path: 'postedBy',
-            select: 'firstName lastName grade',
+            select: 'firstName lastName',
         })
         .then((post) => res.status(200).json(post))
         .catch((error) => res.status(500).json({ error: 'Une erreur est survenue.' }))

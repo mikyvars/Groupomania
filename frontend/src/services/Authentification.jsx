@@ -3,7 +3,12 @@ import { isExpired } from 'react-jwt'
 
 export const isAuthenticated = () => {
     const { token } = getUserData()
-    return token != null && !isExpired(token)
+
+    if (token != null && !isExpired(token)) {
+        return true
+    } else {
+        return !logout()
+    }
 }
 
 export async function login(data) {
@@ -16,7 +21,8 @@ export async function login(data) {
                 JSON.stringify({
                     token: result.data.token,
                     userId: result.data.userId,
-                    grade: result.data.grade,
+                    userData: result.data.userData,
+                    isAdmin: result.data.isAdmin,
                 })
             )
 
