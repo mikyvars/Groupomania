@@ -74,6 +74,9 @@ function Post({ postId, refreshData }) {
                         Authorization: `Bearer ${getUserData().token}`,
                         'Content-Type': 'multipart/form-data',
                     },
+                    data: {
+                        userId: getUserData().userId,
+                    },
                 })
 
                 if (result.status === 200) {

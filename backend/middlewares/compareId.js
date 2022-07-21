@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
             const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN)
             const userId = decodedToken.userId
 
-            if (post.userId && post.userId === userId) {
+            if (post.postedBy && post.postedBy.toString() === userId) {
                 next()
             } else {
                 User.findOne({ _id: userId })
