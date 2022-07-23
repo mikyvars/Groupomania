@@ -43,24 +43,40 @@ exports.addPost = (req, res, next) => {
 }
 
 exports.modifyPost = (req, res, next) => {
-    const postObject = req.file
-        ? {
-              ...req.body,
-              imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
-          }
-        : { ...req.body }
-
-    Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Votre publication a bien été mise à jour.' }))
-        .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
+    Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            if (req.body.image_delete === 'true' || (req.file !== undefined && post.imageUrl !== null)) {
+                const filename = post.imageUrl.split('/images/')[1]
+                fs.unlink(`images/${filename}`, (error) => {
+                    error && console.log(error)
+                })
+                req.body.imageUrl = null
+            }
+            const postObject = req.file
+                ? {
+                      ...req.body,
+                      imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
+                  }
+                : {
+                      ...req.body,
+                  }
+            Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                .then(() => res.status(200).json({ message: 'Votre publication a bien été mise à jour.' }))
+                .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
+        })
+        .catch((error) => {
+            res.status(500).json({ error: 'Une erreur est survenue.' })
+        })
 }
 
 exports.deletePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            if (post.imageUrl) {
+            if (post.imageUrl !== null) {
                 const filename = post.imageUrl.split('/images/')[1]
-                fs.unlink(`images/${filename}`)
+                fs.unlink(`images/${filename}`, (error) => {
+                    error && console.log(error)
+                })
             }
 
             Post.deleteOne({ _id: req.params.id })

@@ -15,6 +15,7 @@ function Post({ postId, refreshData }) {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({ mode: 'onTouched' })
 
@@ -47,6 +48,7 @@ function Post({ postId, refreshData }) {
         const formData = new FormData()
         formData.append('userId', getUserData().userId)
         formData.append('content', form.content)
+        formData.append('image_delete', form.image_delete)
         formData.append('image', form.image[0])
 
         try {
@@ -60,6 +62,7 @@ function Post({ postId, refreshData }) {
             if (result.status === 200) {
                 setModalVisibility(false)
                 fetchData()
+                reset()
             }
         } catch (error) {
             console.log(error)
@@ -72,7 +75,6 @@ function Post({ postId, refreshData }) {
                 const result = await axios.delete(`/post/${postId}`, {
                     headers: {
                         Authorization: `Bearer ${getUserData().token}`,
-                        'Content-Type': 'multipart/form-data',
                     },
                     data: {
                         userId: getUserData().userId,
@@ -175,6 +177,9 @@ function Post({ postId, refreshData }) {
                             </Form.Group>
                             <Form.Group className="mt-2">
                                 <Form.Control type="file" {...register('image')} />
+                            </Form.Group>
+                            <Form.Group className="mt-2">
+                                <Form.Check label="Supprimer le fichier" disabled={currentData.imageUrl === null} {...register('image_delete')} />
                             </Form.Group>
                         </Form>
                     </Modal.Body>
