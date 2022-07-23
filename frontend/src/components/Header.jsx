@@ -52,11 +52,7 @@ function Header() {
                     {currentData.length > 0 && <Navbar.Brand className="fs-6 text-secondary">{`Connecté en tant que ${currentData.firstName} ${currentData.lastName}`}</Navbar.Brand>}
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end mt-3 mt-sm-0">
-<<<<<<< HEAD
                         <Nav>
-=======
-                        <Nav className="align-items-center">
->>>>>>> cf2a93ff47ce6d3698b599936b822d7e04b9dbe4
                             {isAuthenticated() ? (
                                 <Nav.Link className="btn btn-light" onClick={handleLogout}>
                                     Déconnexion

@@ -119,13 +119,9 @@ function Home() {
                     <Form.Control type="file" {...register('image')} aria-label="Ajouter une image" />
                 </Form.Group>
                 <Form.Group className="mt-3">
-<<<<<<< HEAD
                     <Button type="submit" className="w-100">
                         Publier
                     </Button>
-=======
-                    <Button type="submit">Publier</Button>
->>>>>>> cf2a93ff47ce6d3698b599936b822d7e04b9dbe4
                 </Form.Group>
             </Form>
             <div>

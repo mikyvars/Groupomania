@@ -15,10 +15,7 @@ function Post({ postId, refreshData }) {
     const {
         register,
         handleSubmit,
-<<<<<<< HEAD
         reset,
-=======
->>>>>>> cf2a93ff47ce6d3698b599936b822d7e04b9dbe4
         formState: { errors },
     } = useForm({ mode: 'onTouched' })
 
@@ -51,10 +48,7 @@ function Post({ postId, refreshData }) {
         const formData = new FormData()
         formData.append('userId', getUserData().userId)
         formData.append('content', form.content)
-<<<<<<< HEAD
         formData.append('image_delete', form.image_delete)
-=======
->>>>>>> cf2a93ff47ce6d3698b599936b822d7e04b9dbe4
         formData.append('image', form.image[0])
 
         try {
@@ -68,10 +62,7 @@ function Post({ postId, refreshData }) {
             if (result.status === 200) {
                 setModalVisibility(false)
                 fetchData()
-<<<<<<< HEAD
                 reset()
-=======
->>>>>>> cf2a93ff47ce6d3698b599936b822d7e04b9dbe4
             }
         } catch (error) {
             console.log(error)
@@ -84,10 +75,6 @@ function Post({ postId, refreshData }) {
                 const result = await axios.delete(`/post/${postId}`, {
                     headers: {
                         Authorization: `Bearer ${getUserData().token}`,
-<<<<<<< HEAD
-=======
-                        'Content-Type': 'multipart/form-data',
->>>>>>> cf2a93ff47ce6d3698b599936b822d7e04b9dbe4
                     },
                     data: {
                         userId: getUserData().userId,
@@ -191,12 +178,9 @@ function Post({ postId, refreshData }) {
                             <Form.Group className="mt-2">
                                 <Form.Control type="file" {...register('image')} />
                             </Form.Group>
-<<<<<<< HEAD
                             <Form.Group className="mt-2">
                                 <Form.Check label="Supprimer le fichier" disabled={currentData.imageUrl === null} {...register('image_delete')} />
                             </Form.Group>
-=======
->>>>>>> cf2a93ff47ce6d3698b599936b822d7e04b9dbe4
                         </Form>
                     </Modal.Body>
                     <Modal.Footer className="justify-content-start">
