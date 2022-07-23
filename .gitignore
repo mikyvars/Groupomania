@@ -4,5 +4,5 @@ backend/.env
 backend/node_modules
 backend/images
 
-frontend/.env
+frontend/.env.local
 frontend/node_modules
