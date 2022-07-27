@@ -8,6 +8,7 @@ exports.getUser = (req, res, next) => {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 biography: user.biography,
+                avatarUrl: user.avatarUrl,
                 isAdmin: user.isAdmin,
             })
         )

@@ -34,7 +34,7 @@ exports.addPost = (req, res, next) => {
     const postObject = req.body
     const post = new Post({
         ...postObject,
-        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
+        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/posts/${req.file.filename}` : null,
     })
 
     post.save()
@@ -46,7 +46,7 @@ exports.modifyPost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then((post) => {
             if (req.body.image_delete === 'true' || (req.file !== undefined && post.imageUrl !== null)) {
-                const filename = post.imageUrl.split('/images/')[1]
+                const filename = post.imageUrl.split('/images/posts/')[1]
                 fs.unlink(`images/${filename}`, (error) => {
                     error && console.log(error)
                 })
@@ -55,7 +55,7 @@ exports.modifyPost = (req, res, next) => {
             const postObject = req.file
                 ? {
                       ...req.body,
-                      imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
+                      imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/posts/${req.file.filename}` : null,
                   }
                 : {
                       ...req.body,
@@ -73,7 +73,7 @@ exports.deletePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then((post) => {
             if (post.imageUrl !== null) {
-                const filename = post.imageUrl.split('/images/')[1]
+                const filename = post.imageUrl.split('/images/posts/')[1]
                 fs.unlink(`images/${filename}`, (error) => {
                     error && console.log(error)
                 })
