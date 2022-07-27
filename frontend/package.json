@@ -47,7 +47,6 @@
         ]
     },
     "devDependencies": {
-        "eslint-plugin-react-hooks": "^4.6.0",
-        "git-filter-repo": "^0.0.30"
+        "eslint-plugin-react-hooks": "^4.6.0"
     }
 }
