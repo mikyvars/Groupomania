@@ -45,7 +45,7 @@ function Header() {
     return (
         <header className="bg-gprimary">
             <Navbar expand="sm">
-                <Container fluid mx="1">
+                <Container mx="1">
                     <Navbar.Brand>
                         <Image src="/images/logo-white.svg" alt="Logo de groupomania" style={{ maxHeight: '40px' }} />
                     </Navbar.Brand>
@@ -54,9 +54,17 @@ function Header() {
                     <Navbar.Collapse className="justify-content-end mt-3 mt-sm-0">
                         <Nav>
                             {isAuthenticated() ? (
-                                <Nav.Link className="btn btn-light" onClick={handleLogout}>
-                                    Déconnexion
-                                </Nav.Link>
+                                <>
+                                    <LinkContainer to={`/profile/${getUserData().userId}`}>
+                                        <Nav.Link className="btn btn-light me-0 me-sm-2 mb-2 mb-sm-0">Profil</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to={`/settings/${getUserData().userId}`}>
+                                        <Nav.Link className="btn btn-light me-0 me-sm-2 mb-2 mb-sm-0">Parametres</Nav.Link>
+                                    </LinkContainer>
+                                    <Nav.Link className="btn btn-light" onClick={handleLogout}>
+                                        Déconnexion
+                                    </Nav.Link>
+                                </>
                             ) : (
                                 <>
                                     <LinkContainer to="/login">
