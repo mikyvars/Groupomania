@@ -11,7 +11,7 @@ function PostComment({ postData, close }) {
                 <Modal.Title>Commentaires</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {postData.comments.map((element, index) => (
+                {postData.usersComments.map((element, index) => (
                     <Card key={index}>
                         <Card.Header className="fs-8" style={{ padding: '4px 10px' }}>
                             Publié par ### le {new Date(element.posted).toLocaleDateString('fr-FR')} à {new Date(element.posted).toLocaleTimeString('fr-FR')}
