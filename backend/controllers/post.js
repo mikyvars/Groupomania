@@ -1,5 +1,6 @@
 const fs = require('fs')
 const Post = require('../models/Post')
+const PostComment = require('../models/PostComment')
 const User = require('../models/User')
 
 exports.getPosts = (req, res, next) => {
