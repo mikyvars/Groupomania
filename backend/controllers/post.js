@@ -90,10 +90,10 @@ exports.deletePost = (req, res, next) => {
 exports.likePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            if (post.usersLiked.indexOf(req.body.userId) == -1) {
-                post.usersLiked.push(req.body.userId)
+            if (post.usersLiked.indexOf(req.query.userId) == -1) {
+                post.usersLiked.push(req.query.userId)
             } else {
-                const index = post.usersLiked.findIndex((user) => user === req.body.userId)
+                const index = post.usersLiked.findIndex((user) => user === req.query.userId)
                 post.usersLiked.splice(index, 1)
             }
 
