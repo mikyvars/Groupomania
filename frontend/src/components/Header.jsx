@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { getUserData, isAuthenticated, logout } from '../services/Authentification'
+import { isAuthenticated, logout } from '../services/Authentification'
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import Navbar from 'react-bootstrap/Navbar'

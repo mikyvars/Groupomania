@@ -20,14 +20,7 @@ function PostComments({ postId, close }) {
 
     const fetchData = async () => {
         try {
-            const result = await axios.get(`/post/${postId}/comments`, {
-                headers: {
-                    Authorization: `Bearer ${getUserData().token}`,
-                },
-                data: {
-                    userId: getUserData().userId,
-                },
-            })
+            const result = await axios.get(`/post/${postId}/comments`)
 
             if (result.status === 200) {
                 setCurrentData(result.data)
@@ -40,9 +33,8 @@ function PostComments({ postId, close }) {
 
     const onSubmit = async (data) => {
         try {
-            const request = { userId: getUserData().userId, content: data.content, postId, postedBy: getUserData().userId }
-            const headers = { Authorization: `Bearer ${getUserData().token}` }
-            const result = await axios.post(`/post/${postId}/comment`, request, { headers })
+            const result = await axios.post(`/post/${postId}/comment`, { content: data.content, postId, postedBy: getUserData().userId })
+
             if (result.status === 201) {
                 fetchData()
                 reset()
@@ -55,10 +47,7 @@ function PostComments({ postId, close }) {
     const onDelete = async (commentId) => {
         if (window.confirm('Vous vous supprimer ce commentaire ?')) {
             try {
-                const request = { userId: getUserData().userId }
-                const headers = { Authorization: `Bearer ${getUserData().token}` }
-                const result = await axios.delete(`/post/${postId}/comment/${commentId}`, request, { headers })
-                console.log('result', result)
+                const result = await axios.delete(`/post/${postId}/comment/${commentId}`)
 
                 if (result.status === 200) {
                     fetchData()

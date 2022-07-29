@@ -26,7 +26,6 @@ function PostCreate({ refresh }) {
         try {
             const result = await axios.post('/post', formData, {
                 headers: {
-                    Authorization: `Bearer ${getUserData().token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             })

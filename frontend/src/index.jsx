@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { getUserData } from './services/Authentification'
 import ReactDOM from 'react-dom/client'
 import axios from 'axios'
 import './custom.scss'
@@ -9,6 +10,8 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Auth from './components/Auth'
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
+axios.defaults.headers = { Authorization: `Bearer ${getUserData().token}` }
+axios.defaults.data = { userId: getUserData().userId }
 
 function App() {
     return (

@@ -19,14 +19,7 @@ function Post({ postId, refreshData }) {
 
     const fetchData = async () => {
         try {
-            const result = await axios.get(`/post/${postId}`, {
-                headers: {
-                    Authorization: `Bearer ${getUserData().token}`,
-                },
-                data: {
-                    userId: getUserData().userId,
-                },
-            })
+            const result = await axios.get(`/post/${postId}`)
 
             if (result.status === 200) {
                 setCurrentData(result.data)
@@ -39,14 +32,7 @@ function Post({ postId, refreshData }) {
     const onDelete = async () => {
         if (window.confirm('Voulez vous supprimez cette publication?')) {
             try {
-                const result = await axios.delete(`/post/${postId}`, {
-                    headers: {
-                        Authorization: `Bearer ${getUserData().token}`,
-                    },
-                    data: {
-                        userId: getUserData().userId,
-                    },
-                })
+                const result = await axios.delete(`/post/${postId}`)
 
                 if (result.status === 200) {
                     refreshData()
@@ -59,17 +45,7 @@ function Post({ postId, refreshData }) {
 
     const onLike = async () => {
         try {
-            const result = await axios.post(
-                `/post/${postId}/like`,
-                {
-                    userId: getUserData().userId,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${getUserData().token}`,
-                    },
-                }
-            )
+            const result = await axios.post(`/post/${postId}/like`)
 
             if (result.status === 200) {
                 fetchData()

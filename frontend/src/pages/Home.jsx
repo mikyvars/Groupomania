@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { getUserData } from '../services/Authentification'
 import axios from 'axios'
 import Container from 'react-bootstrap/Container'
 import Pagination from 'react-bootstrap/Pagination'
@@ -18,14 +17,7 @@ function Home() {
         setIsDataLoading(true)
 
         try {
-            const result = await axios.get('/post', {
-                headers: {
-                    Authorization: `Bearer ${getUserData().token}`,
-                },
-                data: {
-                    userId: getUserData().userId,
-                },
-            })
+            const result = await axios.get('/post')
 
             if (result.status === 200) {
                 setCurrentData(result.data)

@@ -23,7 +23,6 @@ function PostEdit({ postData, refresh, close }) {
         try {
             const result = await axios.put(`/post/${postData._id}`, formData, {
                 headers: {
-                    Authorization: `Bearer ${getUserData().token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             })
