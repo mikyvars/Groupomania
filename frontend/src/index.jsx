@@ -8,8 +8,6 @@ import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Auth from './components/Auth'
-import Profile from './pages/Profile'
-import Settings from './pages/Settings'
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
 
 function App() {
@@ -18,8 +16,6 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Auth Component={Home} />} />
-                <Route path="/profile/:userId" element={<Auth Component={Profile} />} />
-                <Route path="/settings/:userId" element={<Auth Component={Settings} />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
             </Routes>

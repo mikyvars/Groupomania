@@ -9,7 +9,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Button from 'react-bootstrap/Button'
 
 function PostCreate({ refresh }) {
-    const [currentError, setCurrentError] = useState({ visibility: false, type: 'error', message: "Désolé, le message d'erreur a du se perdre dans le multivers." })
+    const [currentError, setCurrentError] = useState({ visibility: false, type: 'error', message: '' })
     const {
         register,
         handleSubmit,
@@ -37,16 +37,15 @@ function PostCreate({ refresh }) {
                 reset()
             }
         } catch (error) {
-            setCurrentError(error.response.data.error)
-            setCurrentError({ visibility: false, type: 'error', message: "Désolé, le message d'erreur a du se perdre dans le multivers." })
+            setCurrentError({ visibility: true, type: 'danger', message: 'Votre publication a du se perdre dans le multivers.' })
         }
     }
 
     return (
         <>
             <Alert show={currentError.visibility} variant={currentError.type} onClose={() => setCurrentError({ visibility: false })} dismissible>
-                <Alert.Heading>Oups, une erreur est survenue {<EmojiFrown />}</Alert.Heading>
-                <p>{currentError}</p>
+                <Alert.Heading>Oups, une erreur est survenue 😖</Alert.Heading>
+                {currentError.message}
             </Alert>
 
             <Form className="p-3 bg-gprimary rounded-3" onSubmit={handleSubmit(onSubmit)}>

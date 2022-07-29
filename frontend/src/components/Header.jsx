@@ -31,12 +31,6 @@ function Header() {
                         <Nav>
                             {isAuthenticated() ? (
                                 <>
-                                    <LinkContainer to={`/profile/${getUserData().userId}`}>
-                                        <Nav.Link className="btn btn-light me-0 me-sm-2 mb-2 mb-sm-0">Profil</Nav.Link>
-                                    </LinkContainer>
-                                    <LinkContainer to={`/settings/${getUserData().userId}`}>
-                                        <Nav.Link className="btn btn-light me-0 me-sm-2 mb-2 mb-sm-0">Parametres</Nav.Link>
-                                    </LinkContainer>
                                     <Nav.Link className="btn btn-light" onClick={handleLogout}>
                                         Déconnexion
                                     </Nav.Link>

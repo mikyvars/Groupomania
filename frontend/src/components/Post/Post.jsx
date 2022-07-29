@@ -28,7 +28,9 @@ function Post({ postId, refreshData }) {
                 },
             })
 
-            setCurrentData(result.data)
+            if (result.status === 200) {
+                setCurrentData(result.data)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -84,7 +86,7 @@ function Post({ postId, refreshData }) {
     return (
         currentData.length !== 0 && (
             <>
-                {commentsVisibility && <PostComment postData={currentData} close={closeComments} />}
+                {commentsVisibility && <PostComment postId={postId} close={closeComments} />}
                 {editVisibility && <PostEdit postData={currentData} refresh={fetchData} close={closeEdit} />}
                 <article className="bg-light p-3 mt-2 rounded-1 border border-1" style={{ borderColor: 'silver' }}>
                     <div className="d-flex align-items-center justify-content-between">
@@ -124,11 +126,11 @@ function Post({ postId, refreshData }) {
                     <div className="d-flex align-items-center">
                         {currentData.usersLiked.includes(getUserData().userId) ? (
                             <Button className="bg-transparent text-dark remove-boxShadow fs-8" style={{ borderColor: 'silver', padding: '3px 6px' }} onClick={onLike}>
-                                <Heart />
+                                <HeartFill className="text-danger" />
                             </Button>
                         ) : (
                             <Button className="bg-transparent text-dark remove-boxShadow fs-8" style={{ borderColor: 'silver', padding: '3px 6px' }} onClick={onLike}>
-                                <HeartFill className="text-danger" />
+                                <Heart />
                             </Button>
                         )}
                         <Button className="bg-transparent text-dark remove-boxShadow ms-1 fs-8" style={{ borderColor: 'silver', padding: '3px 6px' }} onClick={() => setCommentsVisibility(true)}>

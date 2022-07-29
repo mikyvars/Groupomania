@@ -57,26 +57,25 @@ function Home() {
     return (
         <Container className="mt-2 p-3 w-auto" style={{ maxWidth: '700px' }}>
             <PostCreate refresh={fetchData} />
-            <div>
-                {currentData.length === 0 ? (
-                    isDataLoading ? (
-                        <Spinner animation="border" role="status" variant="danger" className="fs-5 mx-auto mt-5 d-block" style={{ height: '75px', width: '75px' }}>
-                            <span className="visually-hidden">Chargement...</span>
-                        </Spinner>
-                    ) : (
-                        <p className="text-center fs-5 mt-5 d-block">Il n'y a rien à afficher ici :c</p>
-                    )
+
+            {currentData.length === 0 ? (
+                isDataLoading ? (
+                    <Spinner animation="border" role="status" variant="danger" className="fs-5 mx-auto mt-5 d-block" style={{ height: '75px', width: '75px' }}>
+                        <span className="visually-hidden">Chargement...</span>
+                    </Spinner>
                 ) : (
-                    currentData.slice((currentPage - 1) * 5, currentPage * 5).map((element) => <Post key={element._id} postId={element._id} refreshData={fetchData} />)
-                )}
-                {currentData.length > 5 && (
-                    <Pagination className={currentData.length === 0 ? 'd-none' : 'mt-2 justify-content-center'}>
-                        <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
-                        {currentPagination.length > 1 && currentPagination}
-                        <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(currentData.length / 5)} />
-                    </Pagination>
-                )}
-            </div>
+                    <p className="text-center fs-5 mt-5 d-block">Il n'y a rien à afficher ici :c</p>
+                )
+            ) : (
+                currentData.slice((currentPage - 1) * 5, currentPage * 5).map((element) => <Post key={element._id} postId={element._id} refreshData={fetchData} />)
+            )}
+            {currentData.length > 5 && (
+                <Pagination className={currentData.length === 0 ? 'd-none' : 'mt-2 justify-content-center'}>
+                    <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
+                    {currentPagination.length > 1 && currentPagination}
+                    <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(currentData.length / 5)} />
+                </Pagination>
+            )}
         </Container>
     )
 }
