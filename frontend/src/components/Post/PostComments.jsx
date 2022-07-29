@@ -24,7 +24,6 @@ function PostComments({ postId, close }) {
 
             if (result.status === 200) {
                 setCurrentData(result.data)
-                console.log(result.data)
             }
         } catch (error) {
             console.log(error)

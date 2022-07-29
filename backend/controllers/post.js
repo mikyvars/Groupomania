@@ -105,7 +105,7 @@ exports.likePost = (req, res, next) => {
 }
 
 exports.getComments = (req, res) => {
-    PostComment.find()
+    PostComment.find({ postId: req.params.id })
         .populate({
             path: 'postedBy',
             select: 'firstName lastName',
