@@ -18,7 +18,6 @@ function Home() {
 
         try {
             const result = await axios.get('/post')
-
             if (result.status === 200) {
                 setCurrentData(result.data)
                 setIsDataLoading(false)

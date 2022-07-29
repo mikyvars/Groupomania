@@ -11,7 +11,7 @@ import Login from './pages/Login'
 import Auth from './components/Auth'
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
 axios.defaults.headers = { Authorization: `Bearer ${getUserData().token}` }
-axios.defaults.data = { userId: getUserData().userId }
+axios.defaults.params = { userId: getUserData().userId }
 
 function App() {
     return (

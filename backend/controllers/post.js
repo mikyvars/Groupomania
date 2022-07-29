@@ -104,10 +104,34 @@ exports.likePost = (req, res, next) => {
         .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
 }
 
+exports.getComments = (req, res) => {
+    PostComment.find()
+        .populate({
+            path: 'postedBy',
+            select: 'firstName lastName',
+        })
+        .sort({
+            posted: -1,
+        })
+        .exec((err, comments) => {
+            if (err) {
+                res.status(500).json({ error: 'Une erreur est survenue.' })
+            } else {
+                res.status(200).json(comments)
+            }
+        })
+}
+
 exports.addComment = (req, res) => {
     const postComment = new PostComment({ ...req.body })
     postComment
         .save()
         .then(() => res.status(201).json({ message: 'Votre commentaire a bien été envoyée.' }))
+        .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
+}
+
+exports.deleteComment = (req, res) => {
+    PostComment.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Votre commentaire a bien été supprimée.' }))
         .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
 }
