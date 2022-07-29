@@ -102,3 +102,11 @@ exports.likePost = (req, res, next) => {
         })
         .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
 }
+
+exports.addComment = (req, res) => {
+    const postComment = new PostComment({ ...req.body })
+    postComment
+        .save()
+        .then(() => res.status(201).json({ message: 'Votre commentaire a bien été envoyée.' }))
+        .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
+}

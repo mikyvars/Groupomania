@@ -12,5 +12,6 @@ router.post('/', auth, multer, postController.addPost)
 router.put('/:id', auth, multer, compareId, postController.modifyPost)
 router.delete('/:id', auth, compareId, postController.deletePost)
 router.post('/:id/like', auth, postController.likePost)
+router.post('/:id/comment', auth, postController.addComment)
 
 module.exports = router
