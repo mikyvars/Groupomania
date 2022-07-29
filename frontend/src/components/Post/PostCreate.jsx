@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { EmojiFrown } from 'react-bootstrap-icons'
 import { getUserData } from '../../services/Authentification'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
