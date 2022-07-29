@@ -1,58 +1,22 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { getUserData } from '../services/Authentification'
-import { EmojiFrown } from 'react-bootstrap-icons'
 import axios from 'axios'
 import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import Pagination from 'react-bootstrap/Pagination'
-import Alert from 'react-bootstrap/Alert'
-import Post from '../components/Post'
+import Post from '../components/Post/Post'
 import Spinner from 'react-bootstrap/Spinner'
+import PostCreate from '../components/Post/PostCreate'
 
 function Home() {
     const [currentData, setCurrentData] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [currentPagination, setCurrentPagination] = useState([])
-    const [currentError, setCurrentError] = useState("Désolé, le message d'erreur a du se perdre dans le multivers.")
     const [isDataLoading, setIsDataLoading] = useState(true)
-    const [alertVisibility, setAlertVisibility] = useState(false)
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-    } = useForm({ mode: 'onTouched' })
-
-    const onSubmit = async (data) => {
-        const formData = new FormData()
-        formData.append('postedBy', getUserData().userId)
-        formData.append('content', data.content)
-        formData.append('image', data.image[0])
-
-        try {
-            const result = await axios.post('/post', formData, {
-                headers: {
-                    Authorization: `Bearer ${getUserData().token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-            })
-
-            if (result.status === 201) {
-                setAlertVisibility(false)
-                setCurrentError("Désolé, le message d'erreur a du se perdre dans le multivers.")
-                fetchData()
-                reset()
-            }
-        } catch (error) {
-            setCurrentError(error.response.data.error)
-            setAlertVisibility(true)
-        }
-    }
 
     const fetchData = async () => {
+        setIsDataLoading(true)
+
         try {
             const result = await axios.get('/post', {
                 headers: {
@@ -64,11 +28,8 @@ function Home() {
             })
 
             if (result.status === 200) {
-                // remove timeout before sending to prod
-                setTimeout(() => {
-                    setCurrentData(result.data)
-                    setIsDataLoading(false)
-                }, 1000)
+                setCurrentData(result.data)
+                setIsDataLoading(false)
             }
         } catch (error) {
             console.log(error)
@@ -95,35 +56,7 @@ function Home() {
 
     return (
         <Container className="mt-2 p-3 w-auto" style={{ maxWidth: '700px' }}>
-            <Alert show={alertVisibility} variant="danger" onClose={() => setAlertVisibility(false)} dismissible>
-                <Alert.Heading>Oups, une erreur est survenue {<EmojiFrown />}</Alert.Heading>
-                <p>{currentError}</p>
-            </Alert>
-
-            <Form className="p-3 bg-gprimary rounded-3" onSubmit={handleSubmit(onSubmit)}>
-                <div className="d-flex align-items-center text-white">
-                    <h1 className="fs-7">
-                        Connecté en tant que
-                        <span className="text-capitalize ms-1">
-                            "{getUserData().userData.firstName} {getUserData().userData.lastName}"
-                        </span>
-                    </h1>
-                </div>
-                <Form.Group controlId="formContent" className="mt-2">
-                    <Form.FloatingLabel controlId="floatingContent" label="Nouvelle publication...">
-                        <Form.Control as="textarea" placeholder="Nouvelle publication..." required {...register('content')} minLength="10" />
-                        <Form.Control.Feedback type="invalid">{errors.content && errors.content.message}</Form.Control.Feedback>
-                    </Form.FloatingLabel>
-                </Form.Group>
-                <Form.Group className="mt-2">
-                    <Form.Control type="file" {...register('image')} aria-label="Ajouter une image" />
-                </Form.Group>
-                <Form.Group className="mt-3">
-                    <Button type="submit" className="w-100">
-                        Publier
-                    </Button>
-                </Form.Group>
-            </Form>
+            <PostCreate refresh={fetchData} />
             <div>
                 {currentData.length === 0 ? (
                     isDataLoading ? (
