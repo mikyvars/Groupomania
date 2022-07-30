@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { login } from '../services/Authentification'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
+import * as User from '../services/User'
 
 function Login() {
     const navigate = useNavigate()
@@ -17,7 +17,7 @@ function Login() {
     } = useForm({ mode: 'onTouched' })
 
     const onSubmit = async (data) => {
-        const { success, error } = await login(data)
+        const { success, error } = await User.login(data)
 
         if (success) {
             navigate('/')

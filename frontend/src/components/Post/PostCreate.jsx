@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { getUserData } from '../../services/Authentification'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Button from 'react-bootstrap/Button'
+import * as User from '../../services/User'
 
 function PostCreate({ refresh }) {
     const [currentError, setCurrentError] = useState({ visibility: false, type: 'error', message: '' })
@@ -18,7 +18,7 @@ function PostCreate({ refresh }) {
 
     const onSubmit = async (data) => {
         const formData = new FormData()
-        formData.append('postedBy', getUserData().userId)
+        formData.append('postedBy', User.userData().userId)
         formData.append('content', data.content)
         formData.append('image', data.image[0])
 
@@ -51,7 +51,7 @@ function PostCreate({ refresh }) {
                     <h1 className="fs-7">
                         Connecté en tant que
                         <span className="text-capitalize ms-1">
-                            "{getUserData().userData.firstName} {getUserData().userData.lastName}"
+                            "{User.userData().userData.firstName} {User.userData().userData.lastName}"
                         </span>
                     </h1>
                 </div>

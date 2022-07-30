@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { isAuthenticated, logout } from '../services/Authentification'
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import * as User from '../services/User'
 
 function Header() {
     const navigate = useNavigate()
 
     const handleLogout = () => {
-        const success = logout()
+        const success = User.logout()
 
         if (success) {
             navigate('/login')
@@ -29,7 +29,7 @@ function Header() {
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end mt-3 mt-sm-0">
                         <Nav>
-                            {isAuthenticated() ? (
+                            {User.isAuthenticated ? (
                                 <>
                                     <Nav.Link className="btn btn-light" onClick={handleLogout}>
                                         Déconnexion

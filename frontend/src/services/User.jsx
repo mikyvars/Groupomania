@@ -1,17 +1,7 @@
-import axios from 'axios'
 import { isExpired } from 'react-jwt'
+import axios from 'axios'
 
-export const isAuthenticated = () => {
-    const { token } = getUserData()
-
-    if (token != null && !isExpired(token)) {
-        return true
-    } else {
-        return !logout()
-    }
-}
-
-export async function login(data) {
+const login = async (data) => {
     try {
         const result = await axios.post('/auth/login', data)
 
@@ -35,7 +25,7 @@ export async function login(data) {
     }
 }
 
-export async function signup(data) {
+async function signup(data) {
     try {
         const result = await axios.post('/auth/signup', data)
 
@@ -49,12 +39,12 @@ export async function signup(data) {
     }
 }
 
-export function logout() {
+function logout() {
     window.localStorage.removeItem('user')
     return window.localStorage.getItem('user') == null
 }
 
-export function getUserData() {
+const userData = () => {
     if (localStorage.getItem('user') == null) {
         return false
     }
@@ -68,3 +58,15 @@ export function getUserData() {
 
     return userParsed
 }
+
+const isAuthenticated = () => {
+    const { token } = userData()
+
+    if (token != null && !isExpired(token)) {
+        return true
+    } else {
+        return !logout()
+    }
+}
+
+export { login, signup, logout, userData, isAuthenticated }

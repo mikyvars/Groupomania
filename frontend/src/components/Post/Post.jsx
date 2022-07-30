@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { ThreeDotsVertical, Heart, HeartFill } from 'react-bootstrap-icons'
-import { getUserData } from '../../services/Authentification'
 import PostComment from './PostComments'
 import PostEdit from './PostEdit'
 import axios from 'axios'
 import Image from 'react-bootstrap/Image'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
+import * as User from '../../services/User'
 
 function Post({ postId, refreshData }) {
     const [currentData, setCurrentData] = useState([])
@@ -23,7 +23,6 @@ function Post({ postId, refreshData }) {
 
             if (result.status === 200) {
                 setCurrentData(result.data)
-                console.log(result.data)
             }
         } catch (error) {
             console.log(error)
@@ -83,7 +82,7 @@ function Post({ postId, refreshData }) {
                                 Publié le {new Date(currentData.posted).toLocaleDateString('fr-FR')} à {new Date(currentData.posted).toLocaleTimeString('fr-FR')}
                             </p>
                         </div>
-                        {(currentData.postedBy._id === getUserData().userId || getUserData().isAdmin === true) && (
+                        {(currentData.postedBy._id === User.userData().userId || User.userData().isAdmin === true) && (
                             <div style={{ justifySelf: 'flex-end' }}>
                                 <Dropdown>
                                     <Dropdown.Toggle bsPrefix="p-0" className="bg-transparent border-0 remove-boxShadow" aria-label="Options de la publication">
@@ -101,7 +100,7 @@ function Post({ postId, refreshData }) {
                         {currentData.content} {currentData.imageUrl && <Image src={currentData.imageUrl} style={{ height: '300px', width: '100%', objectFit: 'cover' }} />}
                     </div>
                     <div className="d-flex align-items-center">
-                        {currentData.usersLiked.includes(getUserData().userId) ? (
+                        {currentData.usersLiked.includes(User.userData().userId) ? (
                             <Button className="bg-transparent text-dark remove-boxShadow fs-8" style={{ borderColor: 'silver', padding: '3px 6px' }} onClick={onLike}>
                                 <HeartFill className="text-danger" />
                             </Button>

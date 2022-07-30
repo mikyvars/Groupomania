@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form'
-import { getUserData } from '../../services/Authentification'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import * as User from '../../services/User'
 
 function PostEdit({ postData, refresh, close }) {
     const {
@@ -15,7 +15,7 @@ function PostEdit({ postData, refresh, close }) {
 
     const onSubmit = async (form) => {
         const formData = new FormData()
-        formData.append('userId', getUserData().userId)
+        formData.append('userId', User.userData().userId)
         formData.append('content', form.content)
         formData.append('image_delete', form.image_delete)
         formData.append('image', form.image[0])

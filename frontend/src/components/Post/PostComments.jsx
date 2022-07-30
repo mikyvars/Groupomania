@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { getUserData } from '../../services/Authentification'
 import { Trash } from 'react-bootstrap-icons'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import * as User from '../../services/User'
 
 function PostComments({ postId, close }) {
     const [currentData, setCurrentData] = useState([])
@@ -32,7 +32,7 @@ function PostComments({ postId, close }) {
 
     const onSubmit = async (data) => {
         try {
-            const result = await axios.post(`/post/${postId}/comment`, { content: data.content, postId, postedBy: getUserData().userId })
+            const result = await axios.post(`/post/${postId}/comment`, { content: data.content, postId, postedBy: User.userData().userId })
 
             if (result.status === 201) {
                 fetchData()
@@ -77,7 +77,7 @@ function PostComments({ postId, close }) {
                                     Publié par {element.postedBy.firstName} {element.postedBy.lastName} le {new Date(element.posted).toLocaleDateString('fr-FR')} à{' '}
                                     {new Date(element.posted).toLocaleTimeString('fr-FR')}
                                 </p>
-                                {element.postedBy._id === getUserData().userId && <Trash style={{ cursor: 'pointer' }} onClick={() => onDelete(element._id)} />}
+                                {element.postedBy._id === User.userData().userId && <Trash style={{ cursor: 'pointer' }} onClick={() => onDelete(element._id)} />}
                             </Card.Header>
                             <Card.Body style={{ padding: '10px' }}>{element.content}</Card.Body>
                         </Card>

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { signup } from '../services/Authentification'
 import { Link } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
@@ -8,6 +7,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
+import * as User from '../services/User'
 
 function Signup() {
     const {
@@ -21,7 +21,7 @@ function Signup() {
     const [modalVisibility, setModalVisibility] = useState(false)
 
     const onSubmit = async (data) => {
-        const { success, error } = await signup(data)
+        const { success, error } = await User.signup(data)
 
         if (success) {
             handleModalOpen()
