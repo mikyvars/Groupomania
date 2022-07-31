@@ -10,10 +10,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import * as User from './services/User'
 
-console.log(0, process.env)
-console.log(1, process.env.REACT_APP_API_URL)
-axios.defaults.baseURL = process.env.REACT_APP_API_URL
-console.log(2, axios.defaults.baseURL)
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_API_URL_PROD : process.env.REACT_APP_API_URL_dev
 axios.interceptors.request.use(
     function (config) {
         config.headers = { Authorization: `Bearer ${User.userData().token}` }
